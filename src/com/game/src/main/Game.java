@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -149,25 +150,43 @@ public class Game extends Canvas implements Runnable{
 		
 		if(key == KeyEvent.VK_RIGHT)
 		{
-			p.setX(p.getX() + 5);
+			p.setVelX(5);
 			//System.out.println("RIGHT PUSHED");
 		}
 		else if(key == KeyEvent.VK_LEFT)
 		{
-			p.setX(p.getX() - 5);
+			p.setVelX(-5);
 		}
 		else if(key == KeyEvent.VK_UP)
 		{
-			p.setY(p.getY() - 5);
+			p.setVelY(-5);
 		}
 		else if(key == KeyEvent.VK_DOWN)
 		{
-			p.setY(p.getY() + 5);
+			p.setVelY(5);
 		}
 	}
 	
 	public void keyReleased(KeyEvent e)
 	{
+		int key = e.getKeyCode();
+		
+		if(key == KeyEvent.VK_RIGHT)
+		{
+			p.setVelX(0);
+		}
+		else if(key == KeyEvent.VK_LEFT)
+		{
+			p.setVelX(0);
+		}
+		else if(key == KeyEvent.VK_UP)
+		{
+			p.setVelY(0);
+		}
+		else if(key == KeyEvent.VK_DOWN)
+		{
+			p.setVelY(0);
+		}
 	}
 
 	
@@ -182,6 +201,11 @@ public class Game extends Canvas implements Runnable{
 		game.setMinimumSize(new Dimension( WIDTH * SCALE, HEIGHT * SCALE));
 		
 		JFrame frame = new JFrame(game.TITLE);
+		
+		//SUGGESTIONS FROM COMMENTS
+		//JPanel panel = new JPanel();
+		//panel.setPreferredSize(new Dimension( WIDTH * SCALE, HEIGHT * SCALE));
+		
 		frame.add(game);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
