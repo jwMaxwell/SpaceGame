@@ -151,7 +151,6 @@ public class Game extends Canvas implements Runnable{
 		if(key == KeyEvent.VK_RIGHT)
 		{
 			p.setVelX(5);
-			//System.out.println("RIGHT PUSHED");
 		}
 		else if(key == KeyEvent.VK_LEFT)
 		{
