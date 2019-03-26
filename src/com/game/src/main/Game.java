@@ -29,17 +29,19 @@ public class Game extends Canvas implements Runnable{
 	
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private BufferedImage spriteSheet = null;
+	private BufferedImage background = null;
 	
 	private Controller c;
-	
-	
 	private Player p;
+	
+	private boolean isShooting = false;
 
 	public void init() 
 	{
 		BufferedImageLoader loader = new BufferedImageLoader();
 		try{
 			spriteSheet = loader.loadImage("/sprite_sheet.png");
+			background = loader.loadImage("/background.png");
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -141,8 +143,12 @@ public class Game extends Canvas implements Runnable{
 		//------------- Anything in between is what we see
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
+		
 		p.render(g);
 		c.render(g);
+		
+		
 		//-------------
 		
 		g.dispose();
@@ -175,14 +181,16 @@ public class Game extends Canvas implements Runnable{
 		{
 			p.setVelY(5);
 		}
-		else if(key == KeyEvent.VK_SPACE)
+		else if(key == KeyEvent.VK_SPACE && !isShooting)
 		{
+			isShooting = true;
 			c.addBullet(new Bullet(p.getX(), p.getY(), this));
 		}
 	}
 	
 	public void keyReleased(KeyEvent e)
 	{
+		
 		int key = e.getKeyCode();
 		
 		if(key == KeyEvent.VK_RIGHT)
@@ -200,6 +208,10 @@ public class Game extends Canvas implements Runnable{
 		else if(key == KeyEvent.VK_DOWN)
 		{
 			p.setVelY(0);
+		}
+		else if(key == KeyEvent.VK_SPACE)
+		{
+			isShooting = false;
 		}
 	}
 

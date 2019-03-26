@@ -13,6 +13,7 @@ public class Player {
 	
 	
 	private BufferedImage player;
+
 	
 	public Player(double x, double y, Game game)
 	{
@@ -22,6 +23,7 @@ public class Player {
 		SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
 		
 		player = ss.grabImage(1, 1, 32, 32);
+		
 	}
 	
 	//SN: mover
