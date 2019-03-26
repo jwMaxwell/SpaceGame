@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 
 public class Game extends Canvas implements Runnable{
 	
@@ -30,6 +30,8 @@ public class Game extends Canvas implements Runnable{
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private BufferedImage spriteSheet = null;
 	
+	private Controller c;
+	
 	
 	private Player p;
 
@@ -46,6 +48,7 @@ public class Game extends Canvas implements Runnable{
 		this.requestFocus();
 		
 		p = new Player(200, 200, this);
+		c = new Controller(this);
 	}
 	
 	//Starter Notes: Backend? NOT SURE WHAT IT DOES
@@ -120,6 +123,7 @@ public class Game extends Canvas implements Runnable{
 	private void tick()
 	{
 		p.tick();
+		c.tick();
 	}
 	 //SN: Renders Image
 	private void render() 
@@ -138,6 +142,7 @@ public class Game extends Canvas implements Runnable{
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 		p.render(g);
+		c.render(g);
 		//-------------
 		
 		g.dispose();
@@ -147,7 +152,13 @@ public class Game extends Canvas implements Runnable{
 	public void keyPressed(KeyEvent e)
 	{
 		int key = e.getKeyCode();
-		
+		/*
+		switch( key )
+		{
+		case KeyEvent.VK_RIGHT
+			p.set
+		}
+		*/
 		if(key == KeyEvent.VK_RIGHT)
 		{
 			p.setVelX(5);
@@ -163,6 +174,10 @@ public class Game extends Canvas implements Runnable{
 		else if(key == KeyEvent.VK_DOWN)
 		{
 			p.setVelY(5);
+		}
+		else if(key == KeyEvent.VK_SPACE)
+		{
+			c.addBullet(new Bullet(p.getX(), p.getY(), this));
 		}
 	}
 	
