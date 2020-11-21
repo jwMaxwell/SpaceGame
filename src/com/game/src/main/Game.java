@@ -7,15 +7,9 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.swing.JFrame;
 
-
-public class Game extends Canvas implements Runnable{
-	
-	/**
-	 * 
-	 */
+public class Code extends Canvas implements Runnable {
 	
 	//Starter Notes: Sets up frame variables
 	private static final long serialVersionUID = 1L;
@@ -40,10 +34,10 @@ public class Game extends Canvas implements Runnable{
 	public void init() 
 	{
 		BufferedImageLoader loader = new BufferedImageLoader();
-		try{
+		try {
 			spriteSheet = loader.loadImage("/sprite_sheet.png");
 			background = loader.loadImage("/background.png");
-		}catch(IOException e){
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -96,7 +90,6 @@ public class Game extends Canvas implements Runnable{
 		int frames = 0;
 		long timer = System.currentTimeMillis();
 		
-		
 		while(running)
 		{
 			long now = System.nanoTime();
@@ -121,9 +114,7 @@ public class Game extends Canvas implements Runnable{
 			
 		}
 		stop();
-		
 	}
-	
 	
 	private void tick()
 	{
@@ -143,6 +134,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		//SN: "Draws out our buffers"
 		Graphics g = bs.getDrawGraphics();
+		
 		//------------- Anything in between is what we see
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
@@ -150,7 +142,6 @@ public class Game extends Canvas implements Runnable{
 		
 		p.render(g);
 		c.render(g);
-		
 		
 		//-------------
 		
@@ -161,30 +152,27 @@ public class Game extends Canvas implements Runnable{
 	public void keyPressed(KeyEvent e)
 	{
 		int key = e.getKeyCode();
-		/*
-		switch( key )
+
+		switch(key)
 		{
-		case KeyEvent.VK_RIGHT
-			p.set
+			case KeyEvent.VK_RIGHT:
+				p.setVelX(5);
+				break;
+				
+			case KeyEvent.VK_LEFT:
+				p.setVelX(-5);
+				break;
+				
+			case KeyEvent.VK_UP:
+				p.setVelY(-5);
+				break;
+				
+			case KeyEvent.VK_DOWN:
+				p.setVelY(5);
+				break;
 		}
-		*/
-		if(key == KeyEvent.VK_RIGHT)
-		{
-			p.setVelX(5);
-		}
-		else if(key == KeyEvent.VK_LEFT)
-		{
-			p.setVelX(-5);
-		}
-		else if(key == KeyEvent.VK_UP)
-		{
-			p.setVelY(-5);
-		}
-		else if(key == KeyEvent.VK_DOWN)
-		{
-			p.setVelY(5);
-		}
-		else if(key == KeyEvent.VK_SPACE && !isShooting)
+		
+		if(key == KeyEvent.VK_SPACE && !isShooting)
 		{
 			isShooting = true;
 			c.addBullet( new Bullet(p.getX(), p.getY(), tex));
@@ -193,7 +181,6 @@ public class Game extends Canvas implements Runnable{
 	
 	public void keyReleased(KeyEvent e)
 	{
-		
 		int key = e.getKeyCode();
 		
 		if(key == KeyEvent.VK_RIGHT)
@@ -217,8 +204,6 @@ public class Game extends Canvas implements Runnable{
 			isShooting = false;
 		}
 	}
-
-	
 	
 	//SN: Where game is ran and setup.
 	public static void main(String args[])
@@ -250,8 +235,4 @@ public class Game extends Canvas implements Runnable{
 	{
 		return spriteSheet;
 	}
-			
-			
-	
-
 }
